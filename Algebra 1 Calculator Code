@@ -1,0 +1,629 @@
+#This is an algebra l calculator
+OPTIONS = [
+  "LINEAR INEQUALITIES", "SOLVE AN EQUATION", "LINEAR FUNCTIONS",
+  "SLOPE-INTERCEPT FORM", "PERPENDICULAR ", "PARALLEL", "STANDARD FORM",
+  "FIND Y-INTERCEPT", "SLOPE OF A LINE", "POINT-SLOPE FORM",
+  "PROPERTIES OF EXPONENTS", "PRODUCT OF POWERS", "QUOTIENT OF POWERS",
+  "POWER OF A POWER", "EXPONENTIAL FUNCTIONS", "QUADRATIC TRANSFORMATIONS"
+]
+
+
+#This function tells the user what they can solve for
+def options():
+  print()
+  print("Here are the things that I can help you with:")
+  print()
+  print(
+    "Linear Inequalities\nSolve an equation\nLinear Functions\n Slope-Intercept form\n Point-Slope form\n  Perpendicular Lines\n  Parallel Lines\n Standard Form\n Find y-intercept\n Slope of a line\nProperties of Exponents\n  Product of Powers\n  Quotient of Powers\n  Power of a Power\nExponential Functions\nQuadratic Transformations"
+  )
+  print()
+  solve_for()
+
+
+#This function ask the user what they want to solve for.
+def solve_for():
+  #Ask the user what they want to solve for
+  global solve
+  solve = input("What would you like to solve for? ").upper()
+  print()
+
+  #Check if the option that the user wants to solve for is in the options.
+
+  #If the option that that they input is not in the options then ask the user again until they input a valid option.
+  if solve not in OPTIONS:
+    keep_asking = True
+    while solve not in OPTIONS and keep_asking:
+      print("Sorry, I wasn't able to process your request")
+      print()
+      solve = input("What would you like to solve for? ").upper()
+      print()
+      if solve in OPTIONS:
+        keep_asking = False
+
+  # print(solve)
+
+
+#If the option they input is in options then check what they want to solve for.
+  if solve in OPTIONS:
+
+    if solve == "LINEAR INEQUALITIES":
+      linear_inequalities()
+
+    elif solve == "SOLVE AN EQUATION":
+      solve_an_equation()
+
+    elif solve == "POINT-SLOPE FORM":
+      par_per = input(
+        "Would you like to solve a Parrallel (P) or Perpendicular line (E)? "
+      ).upper()
+      if par_per == "P":
+        parallel_lines()
+      elif par_per == "E":
+        perpendicular_lines()
+      else:
+        ask = True
+        while par_per != "P" or "E" and ask:
+          par_per = input(
+            "Would you like to solve a Parrallel (P) or Perpendicular line (E)? "
+          ).upper()
+          if par_per == "P":
+            parallel_lines()
+            ask = False
+          elif par_per == "E":
+            perpendicular_lines()
+            ask = False
+
+    elif solve == "STANDARD FORM":
+      # standard_form()
+      sl_or_sf = input(
+        "Would you like to solve: Slope-Intercept Form to Standard Form (SL-SF) or Standard Form to Slope-Intercept Form (SF-SL)? "
+      ).upper()
+
+      if sl_or_sf == "SL-SF":
+        slope_intercept_form_to_standard_form()
+
+      elif sl_or_sf == "SF-SL":
+        standard_form_to_slope_intercept_form()
+
+      else:
+        not_an_option = True
+        while sl_or_sf != ("SL-SF" or "SF-SL") and not_an_option:
+          sl_or_sf = input(
+            "Would you like to solve: Slope-Intercept Form to Standard Form (SL-SF) or Standard Form to Slope-Intercept Form (SF-SL)? "
+          ).upper()
+          print(sl_or_sf)
+          if sl_or_sf == "SL-SF":
+            slope_intercept_form_to_standard_form()
+            not_an_option = False
+
+          elif sl_or_sf == "SF-SL":
+            standard_form_to_slope_intercept_form()
+            not_an_option = False
+
+    elif solve == "FIND Y-INTERCEPT":
+      find_y_intercept()
+
+    elif solve == "SLOPE OF A LINE":
+      slope_of_a_line()
+
+    elif solve == "SLOPE-INTERCEPT FORM":
+      slope_intercept_form()
+
+    elif solve == "PROPERTIES OF EXPONENTS":
+      property = input(
+        "Would you like to solve for Product of Powers (PPW), or Quotient of Powers (QPW), or Power of a Power (PAP)? "
+      ).upper()
+      if property == "PPW":
+        product_of_powers()
+      elif property == "QPW":
+        quotient_of_powers()
+      elif property == "PAP":
+        power_of_a_power()
+      else:
+        ask_again = True
+        while property != ("PPW" or "QPW" or "PAP") and ask_again:
+          property = input(
+            "Would you like to solve for Product of Powers (PPW), or Quotient of Powers (QPW), or Power of a Power (PAP)? "
+          ).upper()
+          if property == "PPW":
+            product_of_powers()
+            ask_again = False
+          elif property == "QPW":
+            quotient_of_powers()
+            ask_again = False
+          elif property == "PAP":
+            power_of_a_power()
+            ask_again = False
+    elif solve == "EXPONENTIAL FUNCTIONS":
+      exponential_function()
+    elif solve == "QUADRATIC TRANSFORMATIONS":
+      quadratic_transformations()
+
+
+def linear_inequalities():
+  print("---Let's solve the linear inequality!---")
+  print()
+  left_variables = float(
+    input("Enter the variables on the left side of the inequality: "))
+  left_constants = float(
+    input("Enter the constants on the left side of the inequality: "))
+  right_variables = float(
+    input("Enter the variables on the right side of the inequality: "))
+  right_constants = float(
+    input("Enter the constants on the right side of the inequality: "))
+  inequality_sign = input(
+    "Enter the inequality sign less than(<), less than equal or to(<=), greater than (>), greater than or equal to(>=): "
+  )
+
+  if left_variables < 0:
+    variables = right_variables + abs(left_variables)
+  else:
+    variables = right_variables - left_variables
+  # print(variables)
+
+  if right_constants < 0:
+    constants = left_constants + abs(right_constants)
+  else:
+    constants = left_constants - right_constants
+  # print(constants)
+
+  if variables < 0 and constants < 0:
+    result = abs(constants / variables)
+  else:
+    result = constants / variables
+  # print(result)
+
+  if inequality_sign == "<":
+    if (variables < 0):
+      inequality_sign = ">"
+    else:
+      inequality_sign = "<"
+
+  if inequality_sign == ">":
+    if (variables < 0):
+      inequality_sign = "<"
+    else:
+      inequality_sign = ">"
+
+  if inequality_sign == "<=":
+    if (variables < 0):
+      inequality_sign = ">="
+      print("hi")
+    else:
+      inequality_sign = "<="
+
+  if inequality_sign == ">=":
+    if (variables < 0):
+      inequality_sign = "<="
+    else:
+      inequality_sign = ">="
+      # print("hello")
+
+  # print(inequality_sign)
+
+  print(f"Your solution is:\n{result}{inequality_sign}x")
+
+
+def solve_an_equation():
+  print("---Let's solve the equation!---")
+  print()
+  left_variables = float(
+    input("Enter the variables on the left side of the equation: "))
+  left_constants = float(
+    input("Enter the constants on the left side of the equation: "))
+  right_variables = float(
+    input("Enter the variables on the right side of the equation: "))
+  right_constants = float(
+    input("Enter the constants on the right side of the equation: "))
+
+  if left_variables < 0:
+    variables = right_variables + abs(left_variables)
+  else:
+    variables = right_variables - left_variables
+  # print(variables)
+
+  if right_constants < 0:
+    constants = left_constants + abs(right_constants)
+  else:
+    constants = left_constants - right_constants
+  # print(constants)
+
+  if variables < 0 and constants < 0:
+    result = abs(constants / variables)
+  else:
+    result = constants / variables
+  # print(result)
+
+  print(f"Your solution is:\nx={result}")
+
+
+def slope_intercept_form():
+  print("---Let's solve the Slope-Intercept form equation!---")
+  print()
+  x1 = float(input("Enter the x1 coordinate: "))
+  y1 = float(input("Enter the y1 coordinate: "))
+  x2 = float(input("Enter the x2 coordinate: "))
+  y2 = float(input("Enter the y2 coordinate: "))
+
+  #find the slope
+  #if y1 is negative then y1 is added to y2
+  if y1 < 0:
+    y = y2 + abs(y1)
+  #If y1 is positive then y1 is substracted from y2
+  else:
+    y = y2 - y1
+
+  #if x1 is negative then x1 is added to x2
+  if x1 > 0:
+    x = x2 + abs(x1)
+  #If x1 is positive then x1 is substracted from x2
+  else:
+    x = x2 - x1
+
+  slope = y / x
+  # print(slope)
+
+  #find the y intercept
+  m_times_x1 = slope * x1
+
+  #if the slope times x1 is less than 0 then it is added to y1
+  if m_times_x1 < 0:
+    b = y1 + abs(m_times_x1)
+  #if the slope times x1 is greater than 0 then ir is substracted from y1
+  else:
+    b = y1 - m_times_x1
+
+  # print(b)
+  print("Your linear equation based on the coordinates that you input is: ")
+  if b > 0:
+    print(f"y={slope}x+{b}")
+
+  else:
+    print(f"y={slope}{b}")
+
+
+def perpendicular_lines():
+  print("")
+  print("---Let's find the perpendicular line!---")
+  print()
+  m = float(input("Enter the opposite reciprocal slope: "))
+  b = float(input("Enter the y-intercept: "))
+  x = float(input("Enter the x1: "))
+  y = float(input("Enter the y1: "))
+
+  if x < 0:
+    x = abs(x)
+  else:
+    x = -abs(x)
+  new_b = m * x
+
+  if y < 0:
+    y = abs(y)
+    new_b = new_b - y
+  else:
+    y = -abs(y)
+    new_b = new_b + abs(y)
+
+  if b < 0:
+    print(f"The perpendicular line you entered was: y={m}x{b}")
+  else:
+    print(f"The perpendicular line you entered was: y={m}x+{b}")
+
+  if new_b < 0:
+    print(f"The perpendicular line to that line is: y={m}x{new_b}")
+  else:
+    print(f"The perpendicular line to that line is: y={m}x+{new_b}")
+
+
+def parallel_lines():
+  print()
+  print("---Let's find the parallel line!---")
+  print()
+  m = float(input("Enter the slope: "))
+  b = float(input("Enter the y-intercept: "))
+  x = float(input("Enter the x1: "))
+  y = float(input("Enter the y1: "))
+
+  if x < 0:
+    new_b = m * abs(x)
+  else:
+    new_b = m * -abs(x)
+
+  # print(new_b)
+
+  if y < 0:
+    y = abs(y)
+    new_b = new_b - y
+  else:
+    new_b = new_b + y
+
+  print(new_b)
+  if b < 0:
+    print(f"The eqation you entered was: y={m}x{b}")
+  else:
+    print(f"The equation you entered was: y={m}x+{b}")
+  if new_b < 0:
+    print(f"The parallel line to the line that you enter is: y={m}x{new_b}")
+  else:
+    print(f"The parallel line to the line that you entered is: y={m}+{new_b}")
+
+
+def slope_intercept_form_to_standard_form():
+  print()
+  print(
+    "---Let's solve the slope-intercept from equation to a stadard from equation!---"
+  )
+  print()
+  x = float(input("Enter the variables on the right side: "))
+  y = 1
+  c = float(input("What is the constant on the right side: "))
+  #if x is positive subtract if not add x
+  if x < 0:
+    x = abs(x)
+  else:
+    x = -abs(x)
+  # print(x)
+  #at this point the equation would look like this x+y=c
+
+  #multiply and add until you get an interger
+
+  add = 0
+  keep_adding = True
+  while keep_adding:
+    add += 1
+    multiply = x * add
+    # print(multiply)
+    if str(multiply)[-1] != "0":
+      # print("h")
+      keep_adding = True
+    else:
+      # print("j")
+      keep_adding = False
+  # print(multiply)
+  # print(add)
+  #if x times add is negative multiply by -1
+  if multiply < 0:
+    multiply = multiply * -1
+    y_times_add = y * add * -1
+    c_times_add = c * add * -1
+  #if x times add is positive it stays the same
+  else:
+    multiply = multiply
+    y_times_add = y * add
+    c_times_add = c * add
+
+  # print(multiply)
+  # print(y_times_add)
+  # print(c_times_add)
+
+  if c < 0:
+    print(f"The equation you entered was y={x}x{c}")
+  else:
+    print(f"The equation you entered was y={x}x+{c}")
+
+  if y_times_add < 0:
+    print(
+      f"The standard form of that equation is {multiply}x{y_times_add}={c_times_add}"
+    )
+  else:
+    print(
+      f"The standard form of that equation is {multiply}x+{y_times_add}={c_times_add}"
+    )
+
+
+def standard_form_to_slope_intercept_form():
+  print()
+  print(
+    "---Let's solve the standard form equation to a slope intercept equation!---"
+  )
+  print()
+  a = float(input("Enter Ax: "))
+  b = float(input("Enter By: "))
+  c = float(input("Enter C: "))
+
+  #A is always positive so the inverse operation is negative
+  new_a = -abs(a)
+  #Divide all of the terms by the b(y)
+  y = b / b
+  x = new_a / b
+  new_c = c / b
+
+  # print(new_a)
+  # print(y)
+  # print(x)
+  # print(new_c)
+
+  #Print the original standard form equation
+  if b < 0:
+    print(f"The standard form equation you entered was: {a}x{b}={c}")
+  else:
+    print(f"The standard form equation you entered was: {a}x+{b}={c}")
+
+  #Print the new slope-intercept equation
+  if new_c < 0:
+    print(
+      f"The slope-intercept from equation of the equation you entered before is: y={x}x{new_c}"
+    )
+  else:
+    print(
+      f"The slope-intercept from equation of the equation you entered before is: y={x}x+{new_c}"
+    )
+
+
+def find_y_intercept():
+  print("---Let's find the y-intercept!---")
+  print()
+  x1 = float(input("Enter the x1 coordinate: "))
+  y1 = float(input("Enter the y1 coordinate: "))
+  x2 = float(input("Enter the x2 coordinate: "))
+  y2 = float(input("Enter the y2 coordinate: "))
+
+  #find the slope
+
+  #if y1 is negative then y1 is added to y2
+  if y1 < 0:
+    y = y2 + abs(y1)
+  #If y1 is positive then y1 is substracted from y2
+  else:
+    y = y2 - y1
+
+  #if x1 is negative then x1 is added to x2
+  if x1 > 0:
+    x = x2 + abs(x1)
+  #If x1 is positive then x1 is substracted from x2
+  else:
+    x = x2 - x1
+
+  slope = y / x
+
+  #find the y intercept
+  #multiply the slope by x1
+  m_times_x1 = slope * x1
+
+  #if the slope times x1 is less than 0 then it is added to y1
+  if m_times_x1 < 0:
+    b = y1 + abs(m_times_x1)
+  #if the slope times x1 is greater than 0 then ir is substracted from y1
+  else:
+    b = y1 - m_times_x1
+
+  print(f"The y-intercept is:{b}")
+
+
+def slope_of_a_line():
+  print("---Let's find the slope of the line!---")
+  print()
+  x1 = float(input("Enter the x1 coordinate: "))
+  y1 = float(input("Enter the y1 coordinate: "))
+  x2 = float(input("Enter the x2 coordinate: "))
+  y2 = float(input("Enter the y2 coordinate: "))
+
+  #find the slope
+
+  #if y1 is negative then y1 is added to y2
+  if y1 < 0:
+    y = y2 + abs(y1)
+  #If y1 is positive then y1 is substracted from y2
+  else:
+    y = y2 - y1
+
+  #if x1 is negative then x1 is added to x2
+  if x1 > 0:
+    x = x2 + abs(x1)
+  #If x1 is positive then x1 is substracted from x2
+  else:
+    x = x2 - x1
+
+  slope = y / x
+  print(f"The slope of the line is:{slope}")
+
+
+def product_of_powers():
+  print()
+  print("---Let's find the Product of Power!---")
+  print()
+  am = float(input("Enter a^m: "))
+  an = float(input("Enter a^n: "))
+  product = am + an
+  print(f"The Product of powers is : a^{product}")
+
+
+def quotient_of_powers():
+  print()
+  print("---Let's find the Quotient of Powers!---")
+  print()
+  am = float(input("Enter the exponent of the numerator: "))
+  an = float(input("Enter the exponent of the denominator: "))
+  quotient = am - an
+  print(f"The Quotient of powers is: a^{quotient}")
+
+
+def power_of_a_power():
+  print()
+  print("---Let's find the Power of a Power!---")
+  print()
+  m = float(input("Enter the exponent inside the parentheses: "))
+  n = float(input("Enter the eponent outside the parentheses: "))
+  power = m * n
+  print(f"The Power of a Power is: a^{power}")
+
+
+def exponential_function():
+  print("---Let's solve the Exponential function!---")
+  print()
+  a = float(input("Enter the y-intercept of the function: "))
+  b = float(input("Enter the common multiplier: "))
+  growth_decay = input(
+    "Does the function have a Growth (G) or Decay (D)? ").upper()
+  multiplier = b / 100
+  print(
+    "This is your exponential function according to the information you input:"
+  )
+  if growth_decay == "G":
+    b = multiplier + 1
+    print(f"f(x)={a}({b:.2f})^2")
+  else:
+    b = 1 - multiplier
+    print(f"f(x)={a}({b:.2f})^2")
+
+
+def quadratic_transformations():
+  print("---Let's find the Quadratic Transformations!---")
+  print()
+  a = float(input("Enter a: "))
+  h = float(input("Enter h: "))
+  k = float(input("Enter k: "))
+  print()
+  if a > 1:
+    print("The graph is vertically compressed")
+    print(f"f(x)={a}(x-h)^2+k")
+  elif a < 1 and a > 0:
+    print("The graph is vertically stretched")
+    print(f"f(x)={a}(x-h)^2+k")
+  elif a < 0:
+    print("The graph is reflected across the -axis")
+    print(f"f(x)={a}(x-h)^2+k")
+  print()
+  if h > 0:
+    print("The graph shifts to the left")
+    print(f"f(x)=a(x+{h})^2+k")
+  else:
+    print("The graph shifts to the right")
+    print(f"f(x)=a(x{h})^2+k")
+  print()
+  if k > 0:
+    print("The graph moves up")
+    print(f"f(x)=a(x-h)^2+{k}")
+  else:
+    print("The graph moves down")
+    print(f"f(x)={a}(x-h)^2{k}")
+
+
+def try_again():
+  run_again = input(
+    "Would you like to solve another problem (Y)/(N)? ").upper()
+  if run_again == "Y":
+    main()
+  elif run_again == "N":
+    print("Try Again Soon!")
+  else:
+    ask_again = True
+    while run_again != ("Y" or "N") and ask_again:
+      run_again = input(
+        "Would you like to solve another problem (Y)/(N)? ").upper()
+      if run_again == "Y":
+        main()
+      elif run_again == "N":
+        print("Try Again Soon!")
+
+
+def main():
+  #Welcome statement
+  print("Hello! Welcome to Ms. Nogoy Algebra I Calculator!")
+  #Options function
+  options()
+  try_again()
+
+
+if __name__ == "__main__":
+  main()
